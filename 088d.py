@@ -1,15 +1,43 @@
-s = input()
+h,w = map(int, input().split())
 
-l = len(s)
+smap = []
+for _ in range(h):
+    s = input()
+    ss = []
+    for i in range(w):
+        ss.append(s[i])
+    smap.append(ss)
+cmap = [[float('inf') for _ in range(w)] for _ in range(h)]
+queue = [(0,0)]
+l = [(1,0), (-1,0), (0,1), (0,-1)]
 
-t = l
+initial_whites = 0
 
-for i,x in enumerate(s):
-    if i == 0:
-        pass
-    else:
-        if x != s[i-1]:
-            a = max(i,l-i)
-            t = min(t,a)
+for x in smap:
+    for y in x:
+        if y == '.':
+            initial_whites += 1
 
-print(t)
+cmap[0][0] = 0
+
+while queue:
+    v = queue.pop(0)
+    smap[v[0]][v[1]] = '#'
+    for x in l:
+        y = (v[0]+x[0], v[1]+x[1])
+        if 0 <= y[0] <= h-1 and 0 <= y[1] <= w-1:
+            if smap[y[0]][y[1]] == '.':
+                smap[y[0]][y[1]] = '#'
+                cmap[y[0]][y[1]] = cmap[v[0]][v[1]] + 1
+                queue.append(y)
+            else:
+                pass
+        else:
+            pass
+
+
+if cmap[h-1][w-1] == float('inf'):
+    print(-1)
+else:
+    print(initial_whites - cmap[h-1][w-1] - 1)
+
