@@ -1,15 +1,11 @@
 h,w = map(int, input().split())
 
-smap = []
-for _ in range(h):
-    s = input()
-    ss = []
-    for i in range(w):
-        ss.append(s[i])
-    smap.append(ss)
+smap = [list(input()) for _ in range(h)]
 cmap = [[float('inf') for _ in range(w)] for _ in range(h)]
 queue = [(0,0)]
 l = [(1,0), (-1,0), (0,1), (0,-1)]
+
+smap[0][0] = '#'
 
 initial_whites = 0
 
@@ -22,7 +18,6 @@ cmap[0][0] = 0
 
 while queue:
     v = queue.pop(0)
-    smap[v[0]][v[1]] = '#'
     for x in l:
         y = (v[0]+x[0], v[1]+x[1])
         if 0 <= y[0] <= h-1 and 0 <= y[1] <= w-1:
@@ -35,9 +30,8 @@ while queue:
         else:
             pass
 
-
 if cmap[h-1][w-1] == float('inf'):
     print(-1)
 else:
-    print(initial_whites - cmap[h-1][w-1] - 1)
+    print(initial_whites - cmap[h-1][w-1])
 
