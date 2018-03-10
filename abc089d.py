@@ -29,6 +29,3 @@ for i in range(q):
 
 for x in ans:
     print(x)             
-
-
-
